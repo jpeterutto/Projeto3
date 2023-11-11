@@ -7,6 +7,7 @@ int main() {
     struct Tarefa t[100];
     FILE *arquivo_binario = fopen("tarefas.txt", "rb");
     int cont = 0;
+
     if (arquivo_binario) {
         while (fread(&t[cont], sizeof(struct Tarefa), 1, arquivo_binario) == 1) {
             cont++;
@@ -33,26 +34,42 @@ int main() {
             ler(&t[cont]);
             printf("Tarefa criada!\n\n");
             cont++;
-            //opção selecionada pelo usuário, que listará e armazenará uma nova tarefa ao arquivo binário
         } else if (opcao == 2) {
             printf("Digite o numero da tarefa que deseja excluir: ");
             fgets(s_posicao, sizeof(s_posicao), stdin);
             posicao = strtol(s_posicao, &p_posicao, 10);
+
             if (p_posicao == s_posicao || *p_posicao != '\n') {
                 printf("Valor invalido!\n\n");
             } else {
                 excluir_tarefa(t, &cont, posicao);
-                //opção selecionada pelo usuário que irá chamar a função excluir tarefa
-        }
+            }
         } else if (opcao == 3) {
             printf("Lista:\n\n");
             for (int x = 0; x < cont; x++) {
                 printf("Tarefa %d\n", x + 1);
                 printf("Prioridade: %d\n", t[x].prioridade);
                 printf("Categoria: %s\n", t[x].categoria);
-                printf("Descricao: %s\n\n", t[x].descricao);
+                printf("Descricao: %s\n", t[x].descricao);
+
+                // Mostrar o status da tarefa
+                printf("Status: ");
+                switch (t[x].status) {
+                    case NAO_INICIADO:
+                        printf("Não Iniciado\n");
+                        break;
+                    case EM_ANDAMENTO:
+                        printf("Em Andamento\n");
+                        break;
+                    case COMPLETO:
+                        printf("Completo\n");
+                        break;
+                    default:
+                        printf("Desconhecido\n");
+                }
+
+                printf("\n");
             }
-            //opção selecionada pelo usuário que fará a listagem de todas as tarefas que estão armazenadas no arquivo binário
         } else if (opcao == 4) {
             arquivo_binario = fopen("tarefas.txt", "wb");
             if (arquivo_binario) {
@@ -61,7 +78,6 @@ int main() {
             }
             printf("Saindo\n");
             break;
-            //opção selecionada pelo usuário que fará com que o arquivo feche
         } else {
             printf("Valor invalido!\n\n");
         }

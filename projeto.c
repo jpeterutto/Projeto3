@@ -1,11 +1,11 @@
 #include "projeto.h"
 #include <stdio.h>
 
+
 void limpa() {
     int c;
-    while ((c = getchar()) != '\n' && c != EOF) { }
+    while ((c = getchar()) != '\n' && c != EOF) {}
 }
-//função responsável por limpar as informações da variável para poder armazenar novas informações
 
 void ler(struct Tarefa *armazena) {
     printf("Prioridade: ");
@@ -17,8 +17,10 @@ void ler(struct Tarefa *armazena) {
     printf("Categoria: ");
     scanf("%99[^\n]", armazena->categoria);
     limpa();
+    printf("Status (0 - Não Iniciado, 1 - Em Andamento, 2 - Completo): ");
+    scanf("%d", (int*)&armazena->status);
+    limpa();
 }
-//função responsável por ler as informações do usuário e salvar no arquivo binário
 
 void excluir_tarefa(struct Tarefa *tarefas, int *cont, int posicao) {
     if (posicao >= 1 && posicao <= *cont) {
@@ -28,7 +30,6 @@ void excluir_tarefa(struct Tarefa *tarefas, int *cont, int posicao) {
         (*cont)--;
         printf("Tarefa deletada\n\n");
     } else {
-        printf("Posição inválida!\n\n",*cont);
-        }
+        printf("Posição inválida!\n\n", *cont);
+    }
 }
-//função responsável por excluir alguma tarefa que está armazenada no arquivo binário
