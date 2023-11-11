@@ -3,10 +3,6 @@
 #include <stdlib.h>
 #include "projeto.h"
 
-// João Pedro Lopes - RA: 24.123.071-3
-// João Pedro Peterutto - RA: 24.123.045-7
-// Gabriel Koiama - RA: 24.123.051-5
-
 int main() {
     struct Tarefa t[100];
     FILE *arquivo_binario = fopen("tarefas.txt", "rb");
