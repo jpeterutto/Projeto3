@@ -1,10 +1,6 @@
 #include "projeto.h"
 #include <stdio.h>
 
-// João Pedro Lopes - RA: 24.123.071-3
-// João Pedro Peterutto - RA: 24.123.045-7
-// Gabriel Koiama - RA: 24.123.051-5
-
 void limpa() {
     int c;
     while ((c = getchar()) != '\n' && c != EOF) {}
@@ -118,6 +114,18 @@ void filtrar_por_prioridade(struct Tarefa *tarefas, int cont, int prioridade) {
 
     for (int i = 0; i < cont; i++) {
         if (tarefas[i].prioridade == prioridade) {
+            imprimir_tarefa(tarefas[i]);
+        }
+    }
+
+    printf("\n");
+}
+
+void filtrar_por_estado(struct Tarefa *tarefas, int cont, enum Status estado) {
+    printf("Tarefas com Estado %d:\n", estado);
+
+    for (int i = 0; i < cont; i++) {
+        if (tarefas[i].status == estado) {
             imprimir_tarefa(tarefas[i]);
         }
     }
