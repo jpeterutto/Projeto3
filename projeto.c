@@ -170,7 +170,7 @@ void exportar_por_prioridade(struct Tarefa *tarefas, int cont, int prioridade, c
     }
 
     fprintf(arquivo_export, "Prioridade, Categoria, Estado, Descricao\n");
-  
+
     for (int i = 0; i < cont; i++) {
         if (tarefas[i].prioridade == prioridade) {
             fprintf(arquivo_export, "%d, %s, %d, %s\n", tarefas[i].prioridade, tarefas[i].categoria, tarefas[i].status, tarefas[i].descricao);
@@ -188,13 +188,32 @@ void exportar_por_categoria(struct Tarefa *tarefas, int cont, const char *catego
         return;
     }
 
-    // Ordenar as tarefas por prioridade
+   
     qsort(tarefas, cont, sizeof(struct Tarefa), comparar_prioridades);
 
     fprintf(arquivo_export, "Prioridade, Categoria, Estado, Descricao\n");
 
     for (int i = 0; i < cont; i++) {
         if (strcmp(tarefas[i].categoria, categoria) == 0) {
+            fprintf(arquivo_export, "%d, %s, %d, %s\n", tarefas[i].prioridade, tarefas[i].categoria, tarefas[i].status, tarefas[i].descricao);
+        }
+    }
+
+    fclose(arquivo_export);
+}
+
+void exportar_por_prioridade_e_categoria(struct Tarefa *tarefas, int cont, int prioridade, const char *categoria, const char *nome_arquivo) {
+    FILE *arquivo_export = fopen(nome_arquivo, "w");
+
+    if (!arquivo_export) {
+        printf("Erro ao criar o arquivo de exportacao.\n");
+        return;
+    }
+
+    fprintf(arquivo_export, "Prioridade, Categoria, Estado, Descricao\n");
+
+    for (int i = 0; i < cont; i++) {
+        if (tarefas[i].prioridade == prioridade && strcmp(tarefas[i].categoria, categoria) == 0) {
             fprintf(arquivo_export, "%d, %s, %d, %s\n", tarefas[i].prioridade, tarefas[i].categoria, tarefas[i].status, tarefas[i].descricao);
         }
     }
