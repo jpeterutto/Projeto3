@@ -24,5 +24,6 @@ void filtrar_por_prioridade(struct Tarefa *tarefas, int cont, int prioridade);
 void filtrar_por_estado(struct Tarefa *tarefas, int cont, enum Status estado);
 void filtrar_por_categoria(struct Tarefa *tarefas, int cont, const char *categoria);
 int comparar_prioridades(const void *a, const void *b);
+void filtrar_por_prioridade_e_categoria(struct Tarefa *tarefas, int cont, int prioridade, const char *categoria);
 
 #endif // PROJETO_H
