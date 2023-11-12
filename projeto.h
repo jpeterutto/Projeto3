@@ -27,5 +27,6 @@ void filtrar_por_prioridade_e_categoria(struct Tarefa *tarefas, int cont, int pr
 int comparar_prioridades(const void *a, const void *b);
 void exportar_por_prioridade(struct Tarefa *tarefas, int cont, int prioridade, const char *nome_arquivo);
 void exportar_por_categoria(struct Tarefa *tarefas, int cont, const char *categoria, const char *nome_arquivo);
+void exportar_por_prioridade_e_categoria(struct Tarefa *tarefas, int cont, int prioridade, const char *categoria, const char *nome_arquivo);
 
 #endif // PROJETO_H
