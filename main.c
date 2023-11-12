@@ -23,7 +23,8 @@ int main() {
         printf(" 3 - Listar\n");
         printf(" 4 - Alterar\n");
         printf(" 5 - Filtrar por Prioridade\n");
-        printf(" 6 - Sair\n");
+        printf(" 6 - Filtrar por Estado\n");
+        printf(" 7 - Sair\n");
         printf("Digite o numero da opcao que deseja usar: ");
 
         char *p, s_opcao[100];
@@ -78,6 +79,17 @@ int main() {
                 }
                 break;
             case 6:
+                printf("Digite o estado para filtrar (0 - Não Iniciado, 1 - Em Andamento, 2 - Completo): ");
+                fgets(s_posicao, sizeof(s_posicao), stdin);
+                int estado = strtol(s_posicao, &p_posicao, 10);
+
+                if (p_posicao == s_posicao || *p_posicao != '\n') {
+                    printf("Valor inválido!\n\n");
+                } else {
+                    filtrar_por_estado(t, cont, estado);
+                }
+                break;
+            case 7:
                 arquivo_binario = fopen("tarefas.txt", "wb");
                 if (arquivo_binario) {
                     fwrite(t, sizeof(struct Tarefa), cont, arquivo_binario);
