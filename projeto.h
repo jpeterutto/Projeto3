@@ -22,5 +22,7 @@ int menu_alterar();
 void imprimir_tarefa(struct Tarefa tarefa);
 void filtrar_por_prioridade(struct Tarefa *tarefas, int cont, int prioridade);
 void filtrar_por_estado(struct Tarefa *tarefas, int cont, enum Status estado);
+void filtrar_por_categoria(struct Tarefa *tarefas, int cont, const char *categoria);
+int comparar_prioridades(const void *a, const void *b);
 
 #endif // PROJETO_H
