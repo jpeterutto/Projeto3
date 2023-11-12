@@ -1,11 +1,13 @@
 #include "projeto.h"
 #include <stdio.h>
 
+//Função responsável por limpar as informações salvas na variável para poder armazenar novas informações
 void limpa() {
     int c;
     while ((c = getchar()) != '\n' && c != EOF) {}
 }
 
+//Função que lê as informações dadas pelo usuário e armazena no arquivo
 void ler(struct Tarefa *armazena) {
     printf("Prioridade: ");
     scanf("%d", &armazena->prioridade);
@@ -21,6 +23,7 @@ void ler(struct Tarefa *armazena) {
     limpa();
 }
 
+//Função responsável por excluir as tarefas
 void excluir_tarefa(struct Tarefa *tarefas, int *cont, int posicao) {
     if (posicao >= 1 && posicao <= *cont) {
         for (int i = posicao - 1; i < *cont - 1; i++) {
@@ -33,6 +36,7 @@ void excluir_tarefa(struct Tarefa *tarefas, int *cont, int posicao) {
     }
 }
 
+//Função responsável por alterar as tarefas
 void alterar_tarefa(struct Tarefa *tarefas, int cont, int posicao) {
     int opcao;
     char *p;
@@ -73,6 +77,7 @@ void alterar_tarefa(struct Tarefa *tarefas, int cont, int posicao) {
     }
 }
 
+//Menu para escolher o que vai ser alterado na tarefa
 int menu_alterar() {
     char *p;
     char s_opcao[100];
@@ -85,12 +90,13 @@ int menu_alterar() {
     return opcao;
 }
 
+//Função responsável por imprimir as tarefas
 void imprimir_tarefa(struct Tarefa tarefa) {
     printf("Prioridade: %d\n", tarefa.prioridade);
     printf("Categoria: %s\n", tarefa.categoria);
     printf("Descricao: %s\n", tarefa.descricao);
 
-    // Mostrar o status da tarefa
+    
     printf("Status: ");
     switch (tarefa.status) {
         case NAO_INICIADO:
@@ -109,6 +115,7 @@ void imprimir_tarefa(struct Tarefa tarefa) {
     printf("\n");
 }
 
+//Função responsável por filtrar tarefas por prioridade
 void filtrar_por_prioridade(struct Tarefa *tarefas, int cont, int prioridade) {
     printf("Tarefas com Prioridade %d:\n", prioridade);
 
@@ -121,6 +128,7 @@ void filtrar_por_prioridade(struct Tarefa *tarefas, int cont, int prioridade) {
     printf("\n");
 }
 
+//Função responsável por filtrar tarefas por estado
 void filtrar_por_estado(struct Tarefa *tarefas, int cont, enum Status estado) {
     printf("Tarefas com Estado %d:\n", estado);
 
@@ -133,6 +141,7 @@ void filtrar_por_estado(struct Tarefa *tarefas, int cont, enum Status estado) {
     printf("\n");
 }
 
+//Função responsável por filtrar tarefas por categoria
 void filtrar_por_categoria(struct Tarefa *tarefas, int cont, const char *categoria) {
     printf("Tarefas na Categoria \"%s\":\n", categoria);
 
@@ -145,6 +154,7 @@ void filtrar_por_categoria(struct Tarefa *tarefas, int cont, const char *categor
     printf("\n");
 }
 
+//Função responsável por filtrar tarefas por prioridade e categoria
 void filtrar_por_prioridade_e_categoria(struct Tarefa *tarefas, int cont, int prioridade, const char *categoria) {
     printf("Tarefas com Prioridade %d e Categoria \"%s\":\n", prioridade, categoria);
 
@@ -157,10 +167,12 @@ void filtrar_por_prioridade_e_categoria(struct Tarefa *tarefas, int cont, int pr
     printf("\n");
 }
 
+//Função responsável por comparar o nível das prioridades
 int comparar_prioridades(const void *a, const void *b) {
     return ((struct Tarefa*)b)->prioridade - ((struct Tarefa*)a)->prioridade;
 }
 
+//Função responsável por exportar tarefas por prioridade
 void exportar_por_prioridade(struct Tarefa *tarefas, int cont, int prioridade, const char *nome_arquivo) {
     FILE *arquivo_export = fopen(nome_arquivo, "w");
 
@@ -180,6 +192,7 @@ void exportar_por_prioridade(struct Tarefa *tarefas, int cont, int prioridade, c
     fclose(arquivo_export);
 }
 
+//Função responsável por exportar tarefas por categoria
 void exportar_por_categoria(struct Tarefa *tarefas, int cont, const char *categoria, const char *nome_arquivo) {
     FILE *arquivo_export = fopen(nome_arquivo, "w");
 
@@ -188,7 +201,7 @@ void exportar_por_categoria(struct Tarefa *tarefas, int cont, const char *catego
         return;
     }
 
-   
+    // Ordenar as tarefas por prioridade
     qsort(tarefas, cont, sizeof(struct Tarefa), comparar_prioridades);
 
     fprintf(arquivo_export, "Prioridade, Categoria, Estado, Descricao\n");
@@ -202,6 +215,7 @@ void exportar_por_categoria(struct Tarefa *tarefas, int cont, const char *catego
     fclose(arquivo_export);
 }
 
+//Função responsável por exportar tarefas por prioridade e categoria
 void exportar_por_prioridade_e_categoria(struct Tarefa *tarefas, int cont, int prioridade, const char *categoria, const char *nome_arquivo) {
     FILE *arquivo_export = fopen(nome_arquivo, "w");
 
