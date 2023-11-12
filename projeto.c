@@ -1,5 +1,6 @@
 #include "projeto.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 void limpa() {
     int c;
@@ -131,4 +132,20 @@ void filtrar_por_estado(struct Tarefa *tarefas, int cont, enum Status estado) {
     }
 
     printf("\n");
+}
+
+void filtrar_por_categoria(struct Tarefa *tarefas, int cont, const char *categoria) {
+    printf("Tarefas na Categoria \"%s\":\n", categoria);
+
+    for (int i = 0; i < cont; i++) {
+        if (strcmp(tarefas[i].categoria, categoria) == 0) {
+            imprimir_tarefa(tarefas[i]);
+        }
+    }
+
+    printf("\n");
+}
+
+int comparar_prioridades(const void *a, const void *b) {
+    return ((struct Tarefa*)b)->prioridade - ((struct Tarefa*)a)->prioridade;
 }
