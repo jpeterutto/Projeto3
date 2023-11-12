@@ -1,6 +1,7 @@
 #include "projeto.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 void limpa() {
     int c;
@@ -139,6 +140,18 @@ void filtrar_por_categoria(struct Tarefa *tarefas, int cont, const char *categor
 
     for (int i = 0; i < cont; i++) {
         if (strcmp(tarefas[i].categoria, categoria) == 0) {
+            imprimir_tarefa(tarefas[i]);
+        }
+    }
+
+    printf("\n");
+}
+
+void filtrar_por_prioridade_e_categoria(struct Tarefa *tarefas, int cont, int prioridade, const char *categoria) {
+    printf("Tarefas com Prioridade %d e Categoria \"%s\":\n", prioridade, categoria);
+
+    for (int i = 0; i < cont; i++) {
+        if (tarefas[i].prioridade == prioridade && strcmp(tarefas[i].categoria, categoria) == 0) {
             imprimir_tarefa(tarefas[i]);
         }
     }
