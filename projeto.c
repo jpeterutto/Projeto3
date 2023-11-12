@@ -1,7 +1,5 @@
 #include "projeto.h"
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
 void limpa() {
     int c;
@@ -31,7 +29,7 @@ void excluir_tarefa(struct Tarefa *tarefas, int *cont, int posicao) {
         (*cont)--;
         printf("Tarefa deletada\n\n");
     } else {
-        printf("Posição inválida!\n\n", *cont);
+        printf("Posição inválida!\n\n");
     }
 }
 
@@ -161,4 +159,21 @@ void filtrar_por_prioridade_e_categoria(struct Tarefa *tarefas, int cont, int pr
 
 int comparar_prioridades(const void *a, const void *b) {
     return ((struct Tarefa*)b)->prioridade - ((struct Tarefa*)a)->prioridade;
+}
+
+void exportar_por_prioridade(struct Tarefa *tarefas, int cont, int prioridade, const char *nome_arquivo) {
+    FILE *arquivo_export = fopen(nome_arquivo, "w");
+
+    if (!arquivo_export) {
+        printf("Erro ao criar o arquivo de exportacao.\n");
+        return;
+    }
+
+    for (int i = 0; i < cont; i++) {
+        if (tarefas[i].prioridade == prioridade) {
+            fprintf(arquivo_export, "%d, %s, %d, %s\n", tarefas[i].prioridade, tarefas[i].categoria, tarefas[i].status, tarefas[i].descricao);
+        }
+    }
+
+    fclose(arquivo_export);
 }
