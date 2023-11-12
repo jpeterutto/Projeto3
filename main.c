@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include "projeto.h"
 
+
+// Menu de tarefas que vai ser responsável por chamar as funções e salvar as informações no arquivo
 int main() {
     struct Tarefa t[100];
     FILE *arquivo_binario = fopen("tarefas.txt", "rb");
