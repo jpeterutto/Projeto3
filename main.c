@@ -25,7 +25,8 @@ int main() {
         printf(" 5 - Filtrar por Prioridade\n");
         printf(" 6 - Filtrar por Estado\n");
         printf(" 7 - Filtrar por Categoria\n");
-        printf(" 8 - Sair\n");
+        printf(" 8 - Filtrar por Prioridade e Categoria\n");
+        printf(" 9 - Sair\n");
         printf("Digite o numero da opcao que deseja usar: ");
 
         char *p, s_opcao[100];
@@ -97,6 +98,15 @@ int main() {
                 filtrar_por_categoria(t, cont, t[cont].categoria);
                 break;
             case 8:
+                printf("Digite a prioridade para filtrar: ");
+                fgets(s_posicao, sizeof(s_posicao), stdin);
+                prioridade = strtol(s_posicao, &p_posicao, 10);
+                printf("Digite a categoria para filtrar: ");
+                fgets(t[cont].categoria, sizeof(t[cont].categoria), stdin);
+                t[cont].categoria[strcspn(t[cont].categoria, "\n")] = '\0';
+                filtrar_por_prioridade_e_categoria(t, cont, prioridade, t[cont].categoria);
+                break;
+            case 9:
                 arquivo_binario = fopen("tarefas.txt", "wb");
                 if (arquivo_binario) {
                     fwrite(t, sizeof(struct Tarefa), cont, arquivo_binario);
