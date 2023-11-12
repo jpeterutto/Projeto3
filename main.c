@@ -27,7 +27,8 @@ int main() {
         printf(" 7 - Filtrar por Categoria\n");
         printf(" 8 - Filtrar por Prioridade e Categoria\n");
         printf(" 9 - Exportar por Prioridade\n");
-        printf("10 - Sair\n");
+        printf("10 - Exportar por Categoria\n");
+        printf("11 - Sair\n");
         printf("Digite o numero da opcao que deseja usar: ");
 
         char *p, s_opcao[100];
@@ -124,6 +125,19 @@ int main() {
                 }
                 break;
             case 10:
+                printf("Digite a categoria para exportar: ");
+                fgets(t[cont].categoria, sizeof(t[cont].categoria), stdin);
+                t[cont].categoria[strcspn(t[cont].categoria, "\n")] = '\0';
+
+                char nome_arquivo_export_categoria[100];
+                printf("Digite o nome do arquivo de exportacao: ");
+                fgets(nome_arquivo_export_categoria, sizeof(nome_arquivo_export_categoria), stdin);
+                nome_arquivo_export_categoria[strcspn(nome_arquivo_export_categoria, "\n")] = '\0';
+
+                exportar_por_categoria(t, cont, t[cont].categoria, nome_arquivo_export_categoria);
+                printf("Tarefas exportadas!\n\n");
+                break;
+            case 11:
                 arquivo_binario = fopen("tarefas.txt", "wb");
                 if (arquivo_binario) {
                     fwrite(t, sizeof(struct Tarefa), cont, arquivo_binario);
